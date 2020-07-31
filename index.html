@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyEtherWallet - Recovery Phrase</title>
+
+    <link rel="shortcut icon" type="image/png" href="mew.png"/>
+
+    <style>
+        @font-face {
+            font-family: "Roboto";
+            src: url("fonts/Roboto-Regular.ttf") format("truetype");
+        }
+        @font-face {
+            font-family: "Roboto";
+            src: url("fonts/Roboto-Bold.ttf") format("truetype");
+            font-weight: bold;
+        }
+
+        :root {
+            --primary-color: #ffffff;
+            --accent-color: #334758;
+            --default-font-family: "Roboto";
+            --default-font-size: 12px;
+            --space: 24px;
+            --border-color: #e8e8e8;
+            --border-width: 1px;
+        }
+
+        #app > .print {
+            display: none;
+        }
+
+        h3 {
+            color: red;
+        }
+
+        .phrase {
+            display: inline-grid;
+            grid-template-rows: repeat(12, 1fr);
+            grid-auto-flow: column;
+            grid-auto-columns: 300px 300px;
+        }
+
+        .word-input {
+            max-width: 60px;
+        }
+
+        .logo {
+            display: none;
+        }
+
+        @media print {
+            * {
+                font-family: var(--default-font-family), sans-serif;
+                color: var(--accent-color);
+                box-sizing: border-box;
+            }
+
+            body {
+                margin: 0;
+            }
+
+            h1, h3 {
+                display: none;
+            }
+
+            .logo {
+                justify-self: center;
+                align-self: center;
+                display: block;
+                margin-top: var(--space);
+                height: calc(var(--space) * 2);
+            }
+
+            .wrapper {
+                display: inline-grid;
+                background-color: var(--primary-color);
+            }
+
+            .phrase {
+                margin: var(--space);
+                background-color: var(--primary-color);
+                border-style: solid;
+                border-width: var(--border-width);
+                border-color: var(--border-color);
+                grid-auto-columns: auto auto;
+                list-style-type: none;
+                padding: var(--space);
+                column-gap: var(--space);
+                border-radius: var(--space);
+            }
+
+            .word-input {
+                border: none;
+                font-size: var(--default-font-size);
+                max-width: 120px;
+                font-weight: bold;
+            }
+
+            .word-item {
+                display: grid;
+                grid-auto-flow: column;
+                grid-auto-columns: var(--space) auto;
+                align-items: center;
+                height: var(--space);
+            }
+
+            .word-label {
+                font-size: var(--default-font-size);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="wrapper">
+            <h1>MyEtherWallet Recovery Phrase</h1>
+            <h3><strong>Warning: </strong>Always use private mode in your browser or clear your browser cache after printing</h3>
+            <img class="logo" src="mew.png" alt="MyEtherWallet logo">
+            <ol id="word-list" class="phrase">
+            </ol>
+        </div>
+    </div>
+    <script>
+        const app = document.querySelector("#app");
+
+        const words = 24;
+
+        const wordList = document.querySelector("#word-list");
+
+        for (i = 0; i < words; i++) {
+            const wordItem = document.createElement("li");
+            const wordItemLabel = document.createElement("label");
+            const wordItemInput = document.createElement("input");
+
+            wordItem.className = "word-item";
+            wordItemInput.className = "word-input";
+            wordItemLabel.className = "word-label";
+
+            wordItemLabel.textContent = i + 1 + ".";
+
+            wordItem.appendChild(wordItemLabel);
+            wordItem.appendChild(wordItemInput);
+            wordList.appendChild(wordItem);
+        }
+    </script>
+</body>
+</html>
