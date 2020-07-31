@@ -41,6 +41,7 @@
             grid-template-rows: repeat(12, 1fr);
             grid-auto-flow: column;
             grid-auto-columns: 300px 300px;
+            list-style-type: none;
         }
 
         .word-input {
@@ -77,6 +78,10 @@
             .wrapper {
                 display: inline-grid;
                 background-color: var(--primary-color);
+                border-style: dashed;
+                border-radius: 24px;
+                border-width: 1px;
+                border-color: gray;
             }
 
             .phrase {
@@ -86,7 +91,6 @@
                 border-width: var(--border-width);
                 border-color: var(--border-color);
                 grid-auto-columns: auto auto;
-                list-style-type: none;
                 padding: var(--space);
                 column-gap: var(--space);
                 border-radius: var(--space);
