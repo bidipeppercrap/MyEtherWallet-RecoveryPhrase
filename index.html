@@ -238,7 +238,7 @@
                 </div>
                 <div class="input-item">
                     <label for="address">Address:</label>
-                    <input type="text" class="address-input outlined-input name="address" id="address">
+                    <input type="text" class="address-input outlined-input name="address" id="address" disabled>
                 </div>
             </div>
 
@@ -253,6 +253,8 @@
         const words = 24;
 
         const wordList = document.querySelector("#word-list");
+        const showAddress = document.querySelector("#show-address");
+        const address = document.querySelector("#address");
 
         for (i = 0; i < words; i++) {
             const wordItem = document.createElement("li");
@@ -269,6 +271,15 @@
             wordItem.appendChild(wordItemInput);
             wordList.appendChild(wordItem);
         }
+
+        showAddress.addEventListener("change", (event) => {
+            if (showAddress.checked) {
+                address.disabled = false;
+            } else {
+                address.disabled = true;
+                address.value = "";
+            }
+        })
     </script>
 </body>
 </html>
