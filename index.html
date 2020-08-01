@@ -26,6 +26,7 @@
             --space: 24px;
             --border-color: #e8e8e8;
             --border-width: 1px;
+            --error-color: #ff0033;
         }
 
         #app > .print {
@@ -40,16 +41,117 @@
             display: inline-grid;
             grid-template-rows: repeat(12, 1fr);
             grid-auto-flow: column;
-            grid-auto-columns: 300px 300px;
             list-style-type: none;
-        }
-
-        .word-input {
-            max-width: 120px;
         }
 
         .logo {
             display: none;
+        }
+
+        @media screen {
+            * {
+                font-family: var(--default-font-family);
+                color: var(--accent-color);
+            }
+
+            body {
+                margin: 0;
+            }
+
+            h3 {
+                color: var(--error-color);
+            }
+
+            ol {
+                margin: 0;
+            }
+
+            #app {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .wrapper {
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+                border-radius: var(--space);
+                margin: var(--space);
+                display: inline-grid;
+                align-items: center;
+                justify-content: center;
+                padding: var(--space);
+            }
+
+            .title {
+                display: grid;
+                grid-auto-flow: row;
+                grid-template-rows: calc(var(--space) * 4) calc(var(--space) * 2) var(--space);
+                justify-items: center;
+                align-items: center;
+            }
+
+            .title > h1 {
+                margin: 0;
+                font-size: var(--space);
+            }
+
+            .title > h3 {
+                margin: 0;
+                font-size: calc(var(--space) / 2);
+            }
+
+            .title-logo {
+                display: block;
+                max-height: calc(var(--space) * 2);
+            }
+
+            .input-group {
+                justify-self: center;
+                margin-top: calc(var(--space) * 2);
+                margin-bottom: var(--space);
+            }
+
+            .outlined {
+                border-style: solid;
+                border-width: var(--border-width);
+                border-color: var(--border-color);
+                border-radius: var(--space);
+                padding: var(--space);
+            }
+
+            .outlined-input {
+                border-style: solid;
+                border-width: var(--border-width);
+                border-color: var(--border-color);
+                border-radius: var(--space);
+                padding: calc(var(--space) / 2);
+                font-size: calc(var(--space) / 2);
+            }
+
+            .input-item {
+                display: grid;
+                grid-auto-flow: column;
+                grid-template-columns: calc(var(--space) * 6) calc(var(--space) * 12);
+                grid-gap: var(--space);
+                height: calc(var(--space) * 2);
+                align-items: center;
+            }
+
+            .input-item > label {
+                font-weight: bold;
+            }
+
+            .phrase {
+                grid-gap: var(--space);
+            }
+
+            .phrase > .word-item {
+                display: grid;
+                grid-auto-flow: column;
+                grid-gap: var(--space);
+                align-items: center;
+                grid-template-columns: calc(var(--space) * 2) calc(var(--space) * 6);
+            }
         }
 
         @media print {
@@ -63,7 +165,11 @@
                 margin: 0;
             }
 
-            h1, h3 {
+            .title {
+                display: none;
+            }
+
+            .item-group {
                 display: none;
             }
 
@@ -120,10 +226,24 @@
 <body>
     <div id="app">
         <div class="wrapper">
-            <h1>MyEtherWallet Recovery Phrase</h1>
-            <h3><strong>Warning: </strong>Always use private mode in your browser or clear your browser cache after printing</h3>
+            <header class="title">
+                <img class="title-logo" src="mew.png" alt="MyEtherWallet logo">
+                <h1>Recovery Phrase Printing Template</h1>
+                <h3><strong>Warning: </strong>Always use private mode in your browser or clear your browser cache after printing</h3>
+            </header>
+            <div class="input-group">
+                <div class="input-item">
+                    <label for="show-address">Show Address</label>
+                    <input type="checkbox" name="show-address" id="show-address">
+                </div>
+                <div class="input-item">
+                    <label for="address">Address:</label>
+                    <input type="text" class="address-input outlined-input name="address" id="address">
+                </div>
+            </div>
+
             <img class="logo" src="mew.png" alt="MyEtherWallet logo">
-            <ol id="word-list" class="phrase">
+            <ol id="word-list" class="phrase outlined">
             </ol>
         </div>
     </div>
@@ -140,7 +260,7 @@
             const wordItemInput = document.createElement("input");
 
             wordItem.className = "word-item";
-            wordItemInput.className = "word-input";
+            wordItemInput.className = "word-input outlined-input";
             wordItemLabel.className = "word-label";
 
             wordItemLabel.textContent = i + 1 + ".";
