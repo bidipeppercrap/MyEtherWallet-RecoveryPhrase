@@ -72,6 +72,10 @@
                 justify-content: center;
             }
 
+            #print-address {
+                display: none;
+            }
+
             .wrapper {
                 box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
                 border-radius: var(--space);
@@ -80,6 +84,14 @@
                 align-items: center;
                 justify-content: center;
                 padding: var(--space);
+            }
+
+            .print-container {
+                display: grid;
+                align-self: center;
+                justify-content: center;
+                align-items: center;
+                justify-content: center;
             }
 
             .title {
@@ -131,7 +143,7 @@
             .input-item {
                 display: grid;
                 grid-auto-flow: column;
-                grid-template-columns: calc(var(--space) * 6) calc(var(--space) * 12);
+                grid-template-columns: calc(var(--space) * 5) calc(var(--space) * 13);
                 grid-gap: var(--space);
                 height: calc(var(--space) * 2);
                 align-items: center;
@@ -150,7 +162,11 @@
                 grid-auto-flow: column;
                 grid-gap: var(--space);
                 align-items: center;
-                grid-template-columns: calc(var(--space) * 2) calc(var(--space) * 6);
+                grid-template-columns: var(--space) calc(var(--space) * 6);
+            }
+
+            .word-label {
+                font-size: var(--default-font-size);
             }
         }
 
@@ -165,11 +181,32 @@
                 margin: 0;
             }
 
+            #print-address {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            #print-address > h6 {
+                font-size: var(--default-font-size);
+                margin: 0;
+                margin-top: var(--space);
+                opacity: 0.5;
+            }
+
             .title {
                 display: none;
             }
 
-            .item-group {
+            .print-container {
+                display: grid;
+                align-self: center;
+                justify-content: center;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .input-group {
                 display: none;
             }
 
@@ -192,6 +229,7 @@
 
             .phrase {
                 margin: var(--space);
+                margin-top: var(--space);
                 background-color: var(--primary-color);
                 border-style: solid;
                 border-width: var(--border-width);
@@ -238,12 +276,15 @@
                 </div>
                 <div class="input-item">
                     <label for="address">Address:</label>
-                    <input type="text" class="address-input outlined-input name="address" id="address" disabled>
+                    <input type="text" class="address-input outlined-input" name="address" id="address" disabled>
                 </div>
             </div>
 
-            <img class="logo" src="mew.png" alt="MyEtherWallet logo">
-            <ol id="word-list" class="phrase outlined">
+            <div class="print-container">
+                <img class="logo" src="mew.png" alt="MyEtherWallet logo">
+                <div id="print-address"></div>
+                <ol id="word-list" class="phrase outlined">
+            </div>
             </ol>
         </div>
     </div>
@@ -255,6 +296,8 @@
         const wordList = document.querySelector("#word-list");
         const showAddress = document.querySelector("#show-address");
         const address = document.querySelector("#address");
+
+        const printAddress = document.querySelector("#print-address");
 
         for (i = 0; i < words; i++) {
             const wordItem = document.createElement("li");
@@ -277,8 +320,21 @@
                 address.disabled = false;
             } else {
                 address.disabled = true;
-                address.value = "";
             }
+        });
+
+        const walletAddress = document.createElement("h6");
+
+        window.addEventListener("beforeprint", function (event) {
+            if (showAddress.checked) {
+                walletAddress.textContent = address.value;
+                printAddress.appendChild(walletAddress);
+            }
+        });
+
+        window.addEventListener("afterprint", function (event) {
+            printAddress.removeChild(walletAddress);
+            printAddress.style = "";
         })
     </script>
 </body>
