@@ -2,7 +2,7 @@
 
 Printing template for your MyEtherWallet recovery phrase.
 
-[**Use it now!**](http://mew-phrase.bidipeppercrap.com/ "Online Printing Template")
+[**Use it now!**](https://mew-phrase.bidipeppercrap.com/ "Online Printing Template")
 
 > :warning: **Always remember to use private mode!**
 
